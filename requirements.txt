@@ -1,0 +1,9 @@
+selenium>=4.24.0
+webdriver-manager>=4.0.2
+python-dotenv>=1.0.1
+gspread>=6.0.0
+google-auth>=2.35.0
+pendulum>=3.0.0
+requests>=2.32.0
+beautifulsoup4>=4.14.2
+

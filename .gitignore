@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.DS_Store
+.env
+data/events_cache.json
+*.pyc
+/service-account.json
+showsintown-*.json
+

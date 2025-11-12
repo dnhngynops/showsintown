@@ -1,0 +1,12 @@
+.venv
+__pycache__
+.git
+.github
+*.log
+data/events_cache.json
+.env
+launchd/
+.DS_Store
+*.pyc
+node_modules
+

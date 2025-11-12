@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.showsintown.scraper</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <!-- Path to your Python executable inside the virtual environment -->
+      <string>/Users/you/Documents/Cursor/showsInTown/.venv/bin/python</string>
+      <string>-m</string>
+      <string>src.main</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PYTHONUNBUFFERED</key>
+      <string>1</string>
+      <key>ENV_FILE</key>
+      <string>/Users/you/Documents/Cursor/showsInTown/.env</string>
+    </dict>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/you/Documents/Cursor/showsInTown</string>
+
+    <!-- Run every Monday at 08:00 -->
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Hour</key>
+      <integer>8</integer>
+      <key>Minute</key>
+      <integer>0</integer>
+      <key>Weekday</key>
+      <integer>1</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/showsintown.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/showsintown.err.log</string>
+  </dict>
+</plist>
+

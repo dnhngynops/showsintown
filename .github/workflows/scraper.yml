@@ -1,0 +1,52 @@
+name: Weekly Scraper
+
+on:
+  schedule:
+    - cron: "0 16 * * 1" # Mondays 08:00 Pacific (adjust as needed)
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build scraper image
+        run: docker build -t showsintown:latest .
+
+      - name: Write service-account credentials
+        env:
+          SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$SERVICE_ACCOUNT_JSON" ]; then
+            echo "GCP_SERVICE_ACCOUNT_JSON secret is missing." >&2
+            exit 1
+          fi
+          echo "$SERVICE_ACCOUNT_JSON" > service-account.json
+
+      - name: Run weekly scrape
+        env:
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          SOURCE_URL: ${{ secrets.SOURCE_URL }}
+          TARGET_VENUES: ${{ secrets.TARGET_VENUES }}
+        run: |
+          if [ -z "$SPREADSHEET_ID" ]; then
+            echo "SPREADSHEET_ID secret is missing." >&2
+            exit 1
+          fi
+
+          docker run --rm \
+            -v "${{ github.workspace }}/service-account.json:/app/service-account.json:ro" \
+            -e GOOGLE_SERVICE_ACCOUNT_FILE=/app/service-account.json \
+            -e SPREADSHEET_ID="${SPREADSHEET_ID}" \
+            -e SOURCE_URL="${SOURCE_URL}" \
+            -e TARGET_VENUES="${TARGET_VENUES}" \
+            -e HEADLESS=true \
+            showsintown:latest
+
