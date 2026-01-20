@@ -38,7 +38,7 @@ Run the scraper manually:
 python -m src.main
 ```
 
-The script fetches events for the current week (Monday through Sunday), validates them, filters out anything previously stored in the local cache, then upserts new rows into the `Master` tab of your sheet in the format:
+The script fetches events for a two-week window (Monday of the current week through Sunday of the following week), validates them, filters out anything previously stored in the local cache, then upserts new rows into the `Master` tab of your sheet in the format:
 
 | Venue | Event | Date | Artist |
 |-------|-------|------|--------|
