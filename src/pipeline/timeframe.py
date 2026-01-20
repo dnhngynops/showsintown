@@ -6,6 +6,6 @@ from datetime import date, datetime, timedelta
 def current_week_range(reference: date | None = None) -> tuple[date, date]:
     ref = reference or datetime.today().date()
     start = ref - timedelta(days=ref.weekday())
-    end = start + timedelta(days=6)
+    end = start + timedelta(days=13)
     return start, end
 
